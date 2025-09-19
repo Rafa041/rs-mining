@@ -1,10 +1,12 @@
-# RSG Mining
+# RS Mining
 
 Um sistema de mineração completo para servidores RedM que utiliza o framework RSG-Core.
 
+**Desenvolvido por Rick Sanchez** | **Inspirado em scripts do RexshackGaming**
+
 ## 📋 Descrição
 
-O RSG Mining permite que os jogadores extraiam diversos minérios e recursos do mundo de Red Dead Redemption 2. O sistema inclui:
+O RS Mining permite que os jogadores extraiam diversos minérios e recursos do mundo de Red Dead Redemption 2. O sistema inclui:
 
 - ✅ 6 locais de mineração diferentes (incluindo uma mina secreta)
 - ✅ 7 tipos de minérios: Carvão, Ferro, Cobre, Prata, Ouro, Quartzo
@@ -124,11 +126,6 @@ Contribuições são bem-vindas! Sinta-se à vontade para:
 ## 📄 Licença
 
 Este projeto está licenciado sob a Licença GPL v3 - veja o arquivo [LICENSE](LICENSE) para detalhes.
-
-## 🆘 Suporte
-
-- **Discord**: [RexshackGaming](https://discord.gg/s5uSk56B65)
-- **GitHub**: [Rexshack-RedM](https://github.com/Rexshack-RedM)
 
 ## 📝 Changelog
 
