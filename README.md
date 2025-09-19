@@ -6,13 +6,15 @@ Um sistema de mineração completo para servidores RedM que utiliza o framework 
 
 O RSG Mining permite que os jogadores extraiam diversos minérios e recursos do mundo de Red Dead Redemption 2. O sistema inclui:
 
-- ✅ Múltiplos locais de mineração
-- ✅ Diferentes tipos de minérios e recursos
+- ✅ 6 locais de mineração diferentes (incluindo uma mina secreta)
+- ✅ 7 tipos de minérios: Carvão, Ferro, Cobre, Prata, Ouro, Quartzo
 - ✅ Sistema de picaretas com durabilidade
 - ✅ Multi-idioma (Português, Inglês, Espanhol)
 - ✅ Interface moderna com ox_lib
 - ✅ Sistema de notificações
 - ✅ Compatível com RSG-Core
+- ✅ Blips no mapa para localizar minas
+- ✅ Sistema de recompensas baseado em chances
 
 ## 🎯 Características
 
@@ -32,34 +34,44 @@ O RSG Mining permite que os jogadores extraiam diversos minérios e recursos do 
 ## 🚀 Instalação
 
 ### 1. Pré-requisitos
+
 Certifique-se de que as seguintes dependências estão instaladas e funcionando:
+
 - rsg-core
 - ox_lib
 - bln_notify
 
 ### 2. Instalação do Resource
+
 1. Clone ou baixe este repositório
 2. Coloque a pasta `rs-mining` na sua pasta `resources`
 3. Adicione os itens necessários ao arquivo `rsg-core/shared/items.lua` (veja seção de itens)
 4. Adicione as imagens dos itens à pasta `rsg-inventory/html/images`
 
 ### 3. Configuração do Servidor
+
 Adicione a seguinte linha ao seu `server.cfg`:
+
 ```
 ensure rs-mining
 ```
 
 ### 4. Itens Necessários
+
 Adicione os seguintes itens ao seu `rsg-core/shared/items.lua`:
 
 ```lua
 -- Mineração
-['pickaxe'] = {['name'] = 'pickaxe', ['label'] = 'Picareta', ['weight'] = 1000, ['type'] = 'item', ['image'] = 'pickaxe.png', ['unique'] = false, ['useable'] = true, ['shouldClose'] = true, ['combinable'] = nil, ['description'] = 'Uma picareta para mineração'},
-['coal'] = {['name'] = 'coal', ['label'] = 'Carvão', ['weight'] = 100, ['type'] = 'item', ['image'] = 'coal.png', ['unique'] = false, ['useable'] = false, ['shouldClose'] = false, ['combinable'] = nil, ['description'] = 'Carvão extraído das minas'},
-['iron'] = {['name'] = 'iron', ['label'] = 'Ferro', ['weight'] = 100, ['type'] = 'item', ['image'] = 'iron.png', ['unique'] = false, ['useable'] = false, ['shouldClose'] = false, ['combinable'] = nil, ['description'] = 'Minério de ferro'},
-['gold'] = {['name'] = 'gold', ['label'] = 'Ouro', ['weight'] = 100, ['type'] = 'item', ['image'] = 'gold.png', ['unique'] = false, ['useable'] = false, ['shouldClose'] = false, ['combinable'] = nil, ['description'] = 'Minério de ouro'},
-['diamond'] = {['name'] = 'diamond', ['label'] = 'Diamante', ['weight'] = 50, ['type'] = 'item', ['image'] = 'diamond.png', ['unique'] = false, ['useable'] = false, ['shouldClose'] = false, ['combinable'] = nil, ['description'] = 'Um diamante bruto'},
+['pickaxe'] = {['name'] = 'pickaxe', ['label'] = 'Picareta', ['weight'] = 100, ['type'] = 'item', ['image'] = 'pickaxe.png', ['unique'] = false, ['useable'] = true, ['shouldClose'] = true, ['combinable'] = nil, ['level'] = 0, ['description'] = 'Equipamento para mineração'},
+['coal'] = {['name'] = 'coal', ['label'] = 'Carvão', ['weight'] = 50, ['type'] = 'item', ['image'] = 'coal.png', ['unique'] = false, ['useable'] = false, ['shouldClose'] = false, ['combinable'] = nil, ['level'] = 0, ['description'] = 'Carvão mineral extraído da mina'},
+['iron_ore'] = {['name'] = 'iron_ore', ['label'] = 'Minério de Ferro', ['weight'] = 60, ['type'] = 'item', ['image'] = 'iron_ore.png', ['unique'] = false, ['useable'] = false, ['shouldClose'] = false, ['combinable'] = nil, ['level'] = 0, ['description'] = 'Minério de ferro bruto'},
+['copper_ore'] = {['name'] = 'copper_ore', ['label'] = 'Minério de Cobre', ['weight'] = 55, ['type'] = 'item', ['image'] = 'copper_ore.png', ['unique'] = false, ['useable'] = false, ['shouldClose'] = false, ['combinable'] = nil, ['level'] = 0, ['description'] = 'Minério de cobre bruto'},
+['silver_ore'] = {['name'] = 'silver_ore', ['label'] = 'Minério de Prata', ['weight'] = 70, ['type'] = 'item', ['image'] = 'silver_ore.png', ['unique'] = false, ['useable'] = false, ['shouldClose'] = false, ['combinable'] = nil, ['level'] = 0, ['description'] = 'Minério de prata precioso'},
+['gold_nugget'] = {['name'] = 'gold_nugget', ['label'] = 'Pepita de Ouro', ['weight'] = 80, ['type'] = 'item', ['image'] = 'gold_nugget.png', ['unique'] = false, ['useable'] = false, ['shouldClose'] = false, ['combinable'] = nil, ['level'] = 0, ['description'] = 'Pepita de ouro puro'},
+['quartz'] = {['name'] = 'quartz', ['label'] = 'Quartzo', ['weight'] = 45, ['type'] = 'item', ['image'] = 'quartz.png', ['unique'] = false, ['useable'] = false, ['shouldClose'] = false, ['combinable'] = nil, ['level'] = 0, ['description'] = 'Cristal de quartzo brilhante'},
 ```
+
+**Nota**: Você pode encontrar o arquivo completo `installation/shared_items.lua` no repositório com todos os itens já formatados.
 
 ## 🎮 Como Usar
 
@@ -68,6 +80,19 @@ Adicione os seguintes itens ao seu `rsg-core/shared/items.lua`:
 3. **Iniciar a Mineração**: Use a picareta próximo às rochas
 4. **Coletar Recursos**: Receba minérios e dinheiro baseado no que você encontrar
 5. **Vender Recursos**: Venda os minérios em lojas ou para outros jogadores
+
+## 🏔️ Locais de Mineração
+
+O sistema inclui 6 locais únicos de mineração:
+
+1. **Mina de Annesburg** - Especializada em carvão e ferro
+2. **Mina de Elysian Pool** - Rica em cobre e quartzo
+3. **Mina de Valentine** - Concentra-se em quartzo e carvão
+4. **Mina de Strawberry** - Rica em ferro e carvão
+5. **Mina do Deserto** - Rica em ouro e pedras preciosas
+6. **Mina Secreta** - Mistura balanceada de todos os minérios
+
+Cada mina tem suas próprias chances de drop e especialidades únicas.
 
 ## ⚙️ Configuração
 
@@ -78,6 +103,7 @@ Todas as configurações podem ser editadas no arquivo `config.lua`:
 - **Chances de Drop**: Ajuste a probabilidade de encontrar cada minério
 - **Recompensas**: Configure o dinheiro e experiência recebidos
 - **Durabilidade**: Ajuste quanto as picaretas se desgastam
+- **Blips**: Configure ícones e cores dos blips no mapa
 
 ## 🌍 Idiomas Suportados
 
