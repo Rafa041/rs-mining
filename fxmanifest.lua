@@ -13,7 +13,7 @@ shared_scripts {
     'config.lua',
 }
 
-client_script {
+client_scripts {
     'client/client.lua',
 }
 

@@ -22,38 +22,46 @@ Config.MineBlips = {
         coords = vector3(2748.2009, 1407.5907, 99.0277)  -- Coordenada do blip
     },
     ['elysian_mine'] = {
-        hash = 1220803671,  -- blip_ambient_hitching_post
-        sprite = 84,        -- Ícone de mina
-        color = 3,          -- Verde (prata/cobre)
+        hash = 1220803671, -- blip_ambient_hitching_post
+        sprite = 84,       -- Ícone de mina
+        color = 3,         -- Verde (prata/cobre)
         scale = 0.8,
         name = 'Mina de Elysian Pool',
-        coords = vector3(2280.5276, 1202.1761, 108.5104)  -- Coordenada do blip
+        coords = vector3(2292.8990, 1065.1968, 82.2831) -- Coordenada do blip (centro dos pontos)
     },
     ['valentine_mine'] = {
-        hash = 1220803671,  -- blip_ambient_hitching_post
-        sprite = 84,        -- Ícone de mina
-        color = 5,          -- Amarelo (quartzo/gemas)
+        hash = 1220803671, -- blip_ambient_hitching_post
+        sprite = 84,       -- Ícone de mina
+        color = 5,         -- Amarelo (quartzo/gemas)
         scale = 0.8,
         name = 'Mina de Valentine',
-        coords = vector3(-1403.6255, 1152.6949, 225.4172)  -- Coordenada do blip
+        coords = vector3(-1425.1401, 1193.3930, 225.4916) -- Coordenada do blip (centro dos pontos)
     },
     ['strawberry_mine'] = {
-        hash = 1220803671,  -- blip_ambient_hitching_post
-        sprite = 84,        -- Ícone de mina
-        color = 2,          -- Azul (ferro/carvão)
+        hash = 1220803671, -- blip_ambient_hitching_post
+        sprite = 84,       -- Ícone de mina
+        color = 2,         -- Azul (ferro/carvão)
         scale = 0.8,
         name = 'Mina de Strawberry',
-        coords = vector3(-2118.7815, 26.9160, 267.1649)  -- Coordenada do blip
+        coords = vector3(-2120.8162, 101.4665, 245.5496) -- Coordenada do blip (centro dos pontos)
     },
     ['desert_mine'] = {
-        hash = 1220803671,  -- blip_ambient_hitching_post
-        sprite = 84,        -- Ícone de mina
-        color = 6,          -- Roxo (ouro/preciosos)
+        hash = 1220803671, -- blip_ambient_hitching_post
+        sprite = 84,       -- Ícone de mina
+        color = 6,         -- Roxo (ouro/preciosos)
         scale = 0.8,
         name = 'Mina do Deserto',
-        coords = vector3(-5964.2490, -3204.4482, -21.3978)  -- Coordenada do blip
+        coords = vector3(-5968.3254, -3170.7617, -24.3759) -- Coordenada do blip (centro dos pontos)
     },
     -- Mina misteriosa não tem blip configurado (permanece escondida)
+    ['little_creek_mine'] = {
+        hash = 1220803671, -- blip_ambient_hitching_post
+        sprite = 84,       -- Ícone de mina
+        color = 7,         -- Cinza (recursos mistos)
+        scale = 0.8,
+        name = 'Mina de Little Creek',
+        coords = vector3(-2659.7134, 692.6793, 182.8150) -- Coordenada do blip (centro dos pontos)
+    },
 }
 
 -- Sistema de minas específicas com probabilidades
@@ -63,17 +71,17 @@ Config.Mines = {
         name = 'Mina de Annesburg',
         description = 'Especializada em carvão e ferro - Boa para mineração industrial',
         rewards = {
-            {item = 'coal', chance = 35},           -- 35% chance de carvão
-            {item = 'iron_ore', chance = 30},       -- 30% chance de ferro
-            {item = 'copper_ore', chance = 20},     -- 20% chance de cobre
-            {item = 'gold_nugget', chance = 10},    -- 10% chance de ouro (raro)
-            {item = 'quartz', chance = 5},          -- 5% chance de quartzo
+            { item = 'coal',        chance = 35 }, -- 35% chance de carvão
+            { item = 'iron_ore',    chance = 30 }, -- 30% chance de ferro
+            { item = 'copper_ore',  chance = 20 }, -- 20% chance de cobre
+            { item = 'gold_nugget', chance = 10 }, -- 10% chance de ouro (raro)
+            { item = 'quartz',      chance = 5 },  -- 5% chance de quartzo
         },
         locations = {
-            {name = 'Annesburg Mining Spot 1', location = 'annesburg-1', coords = vector3(2763.174, 1406.2044, 68.444854), showblip = true, showmarker = true},
-            {name = 'Annesburg Mining Spot 2', location = 'annesburg-2', coords = vector3(2726.7871, 1384.9691, 68.878173), showblip = true, showmarker = true},
-            {name = 'Annesburg Mining Spot 3', location = 'annesburg-3', coords = vector3(2717.3491, 1314.0633, 69.75164), showblip = true, showmarker = true},
-            {name = 'Annesburg Mining Spot 4', location = 'annesburg-4', coords = vector3(2750.500, 1395.800, 69.000), showblip = true, showmarker = true},
+            { name = 'Annesburg Mining Spot 1', location = 'annesburg-1', coords = vector3(2763.174, 1406.2044, 68.444854),  showblip = true, showmarker = true },
+            { name = 'Annesburg Mining Spot 2', location = 'annesburg-2', coords = vector3(2726.7871, 1384.9691, 68.878173), showblip = true, showmarker = true },
+            { name = 'Annesburg Mining Spot 3', location = 'annesburg-3', coords = vector3(2717.3491, 1314.0633, 69.75164),  showblip = true, showmarker = true },
+            { name = 'Annesburg Mining Spot 4', location = 'annesburg-4', coords = vector3(2750.500, 1395.800, 69.000),      showblip = true, showmarker = true },
         }
     },
 
@@ -82,17 +90,18 @@ Config.Mines = {
         name = 'Mina de Elysian Pool',
         description = 'Rica em prata e cobre - Água cristalina atrai metais preciosos',
         rewards = {
-            {item = 'silver_ore', chance = 40},     -- 40% chance de prata
-            {item = 'copper_ore', chance = 30},     -- 30% chance de cobre
-            {item = 'quartz', chance = 20},         -- 20% chance de quartzo
-            {item = 'gold_nugget', chance = 7},     -- 7% chance de ouro
-            {item = 'coal', chance = 3},            -- 3% chance de carvão
+            { item = 'silver_ore',  chance = 40 }, -- 40% chance de prata
+            { item = 'copper_ore',  chance = 30 }, -- 30% chance de cobre
+            { item = 'quartz',      chance = 20 }, -- 20% chance de quartzo
+            { item = 'gold_nugget', chance = 7 },  -- 7% chance de ouro
+            { item = 'coal',        chance = 3 },  -- 3% chance de carvão
         },
         locations = {
-            {name = 'Elysian Pool Spot 1', location = 'elysian-1', coords = vector3(1850.500, 1200.800, 200.000), showblip = true, showmarker = true},
-            {name = 'Elysian Pool Spot 2', location = 'elysian-2', coords = vector3(1845.200, 1195.300, 200.500), showblip = true, showmarker = true},
-            {name = 'Elysian Pool Spot 3', location = 'elysian-3', coords = vector3(1855.800, 1205.100, 199.800), showblip = true, showmarker = true},
-            {name = 'Elysian Pool Spot 4', location = 'elysian-4', coords = vector3(1860.100, 1210.500, 200.200), showblip = true, showmarker = true},
+            { name = 'Elysian Pool Spot 1', location = 'elysian-1', coords = vector3(2308.8254, 1068.0836, 86.1765), showblip = true, showmarker = true },
+            { name = 'Elysian Pool Spot 2', location = 'elysian-2', coords = vector3(2303.4448, 1061.7970, 83.7463), showblip = true, showmarker = true },
+            { name = 'Elysian Pool Spot 3', location = 'elysian-3', coords = vector3(2296.1780, 1053.4911, 80.5480), showblip = true, showmarker = true },
+            { name = 'Elysian Pool Spot 4', location = 'elysian-4', coords = vector3(2273.8367, 1061.9252, 78.1932), showblip = true, showmarker = true },
+            { name = 'Elysian Pool Spot 5', location = 'elysian-5', coords = vector3(2283.2097, 1080.8873, 82.8513), showblip = true, showmarker = true },
         }
     },
 
@@ -101,18 +110,18 @@ Config.Mines = {
         name = 'Mina de Valentine',
         description = 'Mina de quartzo e gemas - Excelente para cristais',
         rewards = {
-            {item = 'quartz', chance = 40},         -- 40% chance de quartzo
-            {item = 'coal', chance = 25},           -- 25% chance de carvão
-            {item = 'iron_ore', chance = 20},       -- 20% chance de ferro
-            {item = 'silver_ore', chance = 10},     -- 10% chance de prata
-            {item = 'gold_nugget', chance = 5},     -- 5% chance de ouro (muito raro)
+            { item = 'quartz',      chance = 40 }, -- 40% chance de quartzo
+            { item = 'coal',        chance = 25 }, -- 25% chance de carvão
+            { item = 'iron_ore',    chance = 20 }, -- 20% chance de ferro
+            { item = 'silver_ore',  chance = 10 }, -- 10% chance de prata
+            { item = 'gold_nugget', chance = 5 },  -- 5% chance de ouro (muito raro)
         },
         locations = {
-            {name = 'Valentine Mining Spot 1', location = 'valentine-1', coords = vector3(835.76275, 1931.185, 259.84646), showblip = true, showmarker = true},
-            {name = 'Valentine Mining Spot 2', location = 'valentine-2', coords = vector3(835.62109, 1925.5421, 259.289), showblip = true, showmarker = true},
-            {name = 'Valentine Mining Spot 3', location = 'valentine-3', coords = vector3(831.66693, 1920.0919, 259.37493), showblip = true, showmarker = true},
-            {name = 'Valentine Mining Spot 4', location = 'valentine-4', coords = vector3(825.7395, 1922.6685, 259.20452), showblip = true, showmarker = true},
-            {name = 'Valentine Mining Spot 5', location = 'valentine-5', coords = vector3(840.500, 1935.800, 260.000), showblip = true, showmarker = true},
+            { name = 'Valentine Mining Spot 1', location = 'valentine-1', coords = vector3(-1419.2682, 1188.1470, 225.4775), showblip = true, showmarker = true },
+            { name = 'Valentine Mining Spot 2', location = 'valentine-2', coords = vector3(-1412.0415, 1182.3870, 225.5519), showblip = true, showmarker = true },
+            { name = 'Valentine Mining Spot 3', location = 'valentine-3', coords = vector3(-1409.6201, 1203.3442, 223.5706), showblip = true, showmarker = true },
+            { name = 'Valentine Mining Spot 4', location = 'valentine-4', coords = vector3(-1441.8285, 1205.4985, 226.3991), showblip = true, showmarker = true },
+            { name = 'Valentine Mining Spot 5', location = 'valentine-5', coords = vector3(-1442.9423, 1188.5875, 226.4588), showblip = true, showmarker = true },
         }
     },
 
@@ -121,19 +130,19 @@ Config.Mines = {
         name = 'Mina de Strawberry',
         description = 'Rica em ferro e carvão - Montanhas rochosas da região',
         rewards = {
-            {item = 'iron_ore', chance = 35},       -- 35% chance de ferro
-            {item = 'coal', chance = 30},           -- 30% chance de carvão
-            {item = 'copper_ore', chance = 20},     -- 20% chance de cobre
-            {item = 'quartz', chance = 10},         -- 10% chance de quartzo
-            {item = 'gold_nugget', chance = 3},     -- 3% chance de ouro (extremamente raro)
-            {item = 'silver_ore', chance = 2},      -- 2% chance de prata (extremamente raro)
+            { item = 'iron_ore',    chance = 35 }, -- 35% chance de ferro
+            { item = 'coal',        chance = 30 }, -- 30% chance de carvão
+            { item = 'copper_ore',  chance = 20 }, -- 20% chance de cobre
+            { item = 'quartz',      chance = 10 }, -- 10% chance de quartzo
+            { item = 'gold_nugget', chance = 3 },  -- 3% chance de ouro (extremamente raro)
+            { item = 'silver_ore',  chance = 2 },  -- 2% chance de prata (extremamente raro)
         },
         locations = {
-            {name = 'Strawberry Mining Spot 1', location = 'strawberry-1', coords = vector3(-1800.500, -430.800, 150.000), showblip = true, showmarker = true},
-            {name = 'Strawberry Mining Spot 2', location = 'strawberry-2', coords = vector3(-1795.200, -435.300, 150.500), showblip = true, showmarker = true},
-            {name = 'Strawberry Mining Spot 3', location = 'strawberry-3', coords = vector3(-1805.800, -425.100, 149.800), showblip = true, showmarker = true},
-            {name = 'Strawberry Mining Spot 4', location = 'strawberry-4', coords = vector3(-1810.100, -420.500, 150.200), showblip = true, showmarker = true},
-            {name = 'Strawberry Mining Spot 5', location = 'strawberry-5', coords = vector3(-1790.800, -440.200, 149.500), showblip = true, showmarker = true},
+            { name = 'Strawberry Mining Spot 1', location = 'strawberry-1', coords = vector3(-2139.8511, 93.0350, 247.4350),  showblip = true, showmarker = true },
+            { name = 'Strawberry Mining Spot 2', location = 'strawberry-2', coords = vector3(-2148.8679, 102.3720, 244.8372), showblip = true, showmarker = true },
+            { name = 'Strawberry Mining Spot 3', location = 'strawberry-3', coords = vector3(-2125.6614, 119.1224, 239.0070), showblip = true, showmarker = true },
+            { name = 'Strawberry Mining Spot 4', location = 'strawberry-4', coords = vector3(-2088.5530, 103.0970, 245.3533), showblip = true, showmarker = true },
+            { name = 'Strawberry Mining Spot 5', location = 'strawberry-5', coords = vector3(-2102.2075, 89.7059, 251.1154),  showblip = true, showmarker = true },
         }
     },
 
@@ -142,19 +151,38 @@ Config.Mines = {
         name = 'Mina do Deserto',
         description = 'Mina do deserto rica em ouro e pedras preciosas - Calor extremo mas tesouros valiosos',
         rewards = {
-            {item = 'gold_nugget', chance = 45},    -- 45% chance de ouro (alta concentração)
-            {item = 'quartz', chance = 25},         -- 25% chance de quartzo
-            {item = 'silver_ore', chance = 15},     -- 15% chance de prata
-            {item = 'copper_ore', chance = 10},     -- 10% chance de cobre
-            {item = 'iron_ore', chance = 3},        -- 3% chance de ferro
-            {item = 'coal', chance = 2},            -- 2% chance de carvão
+            { item = 'gold_nugget', chance = 45 }, -- 45% chance de ouro (alta concentração)
+            { item = 'quartz',      chance = 25 }, -- 25% chance de quartzo
+            { item = 'silver_ore',  chance = 15 }, -- 15% chance de prata
+            { item = 'copper_ore',  chance = 10 }, -- 10% chance de cobre
+            { item = 'iron_ore',    chance = 3 },  -- 3% chance de ferro
+            { item = 'coal',        chance = 2 },  -- 2% chance de carvão
         },
         locations = {
-            {name = 'Desert Mining Spot 1', location = 'desert-1', coords = vector3(-5964.2490, -3204.4482, -21.3978), showblip = true, showmarker = true},
-            {name = 'Desert Mining Spot 2', location = 'desert-2', coords = vector3(-5970.500, -3210.200, -22.100), showblip = true, showmarker = true},
-            {name = 'Desert Mining Spot 3', location = 'desert-3', coords = vector3(-5958.800, -3198.600, -20.800), showblip = true, showmarker = true},
-            {name = 'Desert Mining Spot 4', location = 'desert-4', coords = vector3(-5975.200, -3215.400, -22.500), showblip = true, showmarker = true},
-            {name = 'Desert Mining Spot 5', location = 'desert-5', coords = vector3(-5952.100, -3192.300, -20.200), showblip = true, showmarker = true},
+            { name = 'Desert Mining Spot 1', location = 'desert-1', coords = vector3(-5981.4712, -3161.6370, -26.5571), showblip = true, showmarker = true },
+            { name = 'Desert Mining Spot 2', location = 'desert-2', coords = vector3(-5973.9697, -3168.2673, -25.4412), showblip = true, showmarker = true },
+            { name = 'Desert Mining Spot 3', location = 'desert-3', coords = vector3(-5962.3857, -3173.4534, -23.0801), showblip = true, showmarker = true },
+            { name = 'Desert Mining Spot 4', location = 'desert-4', coords = vector3(-5955.4751, -3179.6892, -22.4251), showblip = true, showmarker = true },
+        }
+    },
+
+    -- MINA DE LITTLE CREEK (West Elizabeth) - Recursos mistos e equilibrados
+    ['little_creek_mine'] = {
+        name = 'Mina de Little Creek',
+        description = 'Mina equilibrada com recursos mistos - Boa para mineração geral',
+        rewards = {
+            { item = 'coal',        chance = 25 }, -- 25% chance de carvão
+            { item = 'iron_ore',    chance = 25 }, -- 25% chance de ferro
+            { item = 'copper_ore',  chance = 20 }, -- 20% chance de cobre
+            { item = 'quartz',      chance = 15 }, -- 15% chance de quartzo
+            { item = 'silver_ore',  chance = 10 }, -- 10% chance de prata
+            { item = 'gold_nugget', chance = 5 },  -- 5% chance de ouro
+        },
+        locations = {
+            { name = 'Little Creek Spot 1', location = 'little_creek-1', coords = vector3(-2721.9121, 731.9470, 172.1749), showblip = true, showmarker = true },
+            { name = 'Little Creek Spot 2', location = 'little_creek-2', coords = vector3(-2719.2397, 715.4320, 170.8869), showblip = true, showmarker = true },
+            { name = 'Little Creek Spot 3', location = 'little_creek-3', coords = vector3(-2730.3813, 715.5460, 169.8949), showblip = true, showmarker = true },
+            { name = 'Little Creek Spot 4', location = 'little_creek-4', coords = vector3(-2715.6768, 730.2618, 176.2028), showblip = true, showmarker = true },
         }
     },
 
@@ -164,17 +192,17 @@ Config.Mines = {
         description = 'Localização secreta - Contém recursos únicos e extremamente raros',
         isSecret = true,                           -- Marca como mina secreta
         rewards = {
-            {item = 'gold_nugget', chance = 25},    -- 25% chance de ouro
-            {item = 'silver_ore', chance = 20},     -- 20% chance de prata
-            {item = 'quartz', chance = 20},         -- 20% chance de quartzo
-            {item = 'coal', chance = 15},           -- 15% chance de carvão
-            {item = 'iron_ore', chance = 10},       -- 10% chance de ferro
-            {item = 'copper_ore', chance = 10},     -- 10% chance de cobre
+            { item = 'gold_nugget', chance = 25 }, -- 25% chance de ouro
+            { item = 'silver_ore',  chance = 20 }, -- 20% chance de prata
+            { item = 'quartz',      chance = 20 }, -- 20% chance de quartzo
+            { item = 'coal',        chance = 15 }, -- 15% chance de carvão
+            { item = 'iron_ore',    chance = 10 }, -- 10% chance de ferro
+            { item = 'copper_ore',  chance = 10 }, -- 10% chance de cobre
         },
         locations = {
-            {name = 'Mysterious Spot 1', location = 'mysterious-1', coords = vector3(-2000.000, -2000.000, 100.000), showblip = false, showmarker = false},
-            {name = 'Mysterious Spot 2', location = 'mysterious-2', coords = vector3(-1995.000, -1995.000, 100.500), showblip = false, showmarker = false},
-            {name = 'Mysterious Spot 3', location = 'mysterious-3', coords = vector3(-2005.000, -2005.000, 99.800), showblip = false, showmarker = false},
+            { name = 'Mysterious Spot 1', location = 'mysterious-1', coords = vector3(-2000.000, -2000.000, 100.000), showblip = false, showmarker = false },
+            { name = 'Mysterious Spot 2', location = 'mysterious-2', coords = vector3(-1995.000, -1995.000, 100.500), showblip = false, showmarker = false },
+            { name = 'Mysterious Spot 3', location = 'mysterious-3', coords = vector3(-2005.000, -2005.000, 99.800),  showblip = false, showmarker = false },
         }
     },
 }
