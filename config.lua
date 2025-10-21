@@ -11,6 +11,17 @@ Config.MediumMiningTime = 18000  -- 18 segundos para quantidade média
 Config.LargeMiningTime = 25000   -- 25 segundos para grande quantidade
 Config.ExceptionalMiningTime = 30000 -- 30 segundos para quantidade excepcional
 
+-- Sistema de Durabilidade da Picareta (Integrado com rsg-inventory)
+Config.PickaxeDurability = {
+    maxDurability = 100,           -- Durabilidade máxima (100%)
+    wearPerUse = 4,                -- Desgaste por uso (4% = 25 usos total)
+    warningLevels = {50, 25, 10},  -- Níveis de aviso (50%, 25%, 10%)
+    criticalLevel = 5,             -- Nível crítico (5% - último aviso)
+    breakAtZero = true,            -- Quebra quando chega a 0%
+    showDurabilityInNotification = true, -- Mostrar durabilidade nas notificações
+    useNativeSystem = true,        -- Usar sistema nativo do rsg-inventory (quality)
+}
+
 -- Configurações de Blips para as minas
 Config.MineBlips = {
     ['annesburg_mine'] = {

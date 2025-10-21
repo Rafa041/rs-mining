@@ -1,136 +1,163 @@
-# RS Mining
+# RS-MINING - Sistema de Mineração para RSG Framework
 
-Um sistema de mineração completo para servidores RedM que utiliza o framework RSG-Core.
+Sistema completo de mineração com durabilidade de picaretas, múltiplas minas e sistema de recompensas progressivo, desenvolvido especificamente para o framework RSG.
 
-**Desenvolvido por Rick Sanchez** | **Inspirado em scripts do RexshackGaming**
+## 🚀 Características
 
-## 📋 Descrição
+- **Sistema de Durabilidade**: Picaretas se desgastam com o uso
+- **Múltiplas Picaretas**: Suporte a várias picaretas com durabilidade individual
+- **6 Minas Diferentes**: Localizações únicas com recompensas específicas
+- **Sistema de Avisos**: Notificações progressivas de desgaste
+- **Integração RSG-Core**: Totalmente compatível com o framework RSG
+- **Sistema de Blips**: Blips dinâmicos baseados em proximidade
+- **Animações Realistas**: Animações de mineração imersivas
 
-O RS Mining permite que os jogadores extraiam diversos minérios e recursos do mundo de Red Dead Redemption 2. O sistema inclui:
+## 📋 Instalação
 
-- ✅ 6 locais de mineração diferentes (incluindo uma mina secreta)
-- ✅ 7 tipos de minérios: Carvão, Ferro, Cobre, Prata, Ouro, Quartzo
-- ✅ Sistema de picaretas com durabilidade
-- ✅ Multi-idioma (Português, Inglês, Espanhol)
-- ✅ Interface moderna com ox_lib
-- ✅ Sistema de notificações
-- ✅ Compatível com RSG-Core
-- ✅ Blips no mapa para localizar minas
-- ✅ Sistema de recompensas baseado em chances
+### 1. Dependências (RSG Framework)
+- `rsg-core` (Framework principal RSG)
+- `ox_lib` (Biblioteca de UI)
+- `bln_notify` (Sistema de notificações)
 
-## 🎯 Características
-
-- **Sistema de Mineração Realista**: Diferentes tipos de minérios com diferentes chances de drop
-- **Durabilidade de Ferramentas**: Picaretas se desgastam com o uso
-- **Locais Diversos**: Múltiplos pontos de mineração espalhados pelo mapa
-- **Interface Intuitiva**: Menu interativo com ox_lib
-- **Multi-idioma**: Suporte para Português, Inglês e Espanhol
-- **Sistema de Recompensas**: Receba dinheiro e experiência por mineração
-
-## 📦 Dependências
-
-- [rsg-core](https://github.com/Rexshack-RedM/rsg-core) - Framework principal
-- [ox_lib](https://github.com/overextended/ox_lib) - Biblioteca de interface
-- [bln_notify](https://github.com/Bln0/notify) - Sistema de notificações
-
-## 🚀 Instalação
-
-### 1. Pré-requisitos
-
-Certifique-se de que as seguintes dependências estão instaladas e funcionando:
-
-- rsg-core
-- ox_lib
-- bln_notify
-
-### 2. Instalação do Resource
-
-1. Clone ou baixe este repositório
-2. Coloque a pasta `rs-mining` na sua pasta `resources`
-3. Adicione os itens necessários ao arquivo `rsg-core/shared/items.lua` (veja seção de itens)
-4. Adicione as imagens dos itens à pasta `rsg-inventory/html/images`
-
-### 3. Configuração do Servidor
-
-Adicione a seguinte linha ao seu `server.cfg`:
-
-```
-ensure rs-mining
-```
-
-### 4. Itens Necessários
-
-Adicione os seguintes itens ao seu `rsg-core/shared/items.lua`:
+### 2. Instalação dos Itens (RSG Framework)
+Adicione os itens do arquivo `installation/shared_items.lua` ao seu `rsg-core/shared/items.lua`:
 
 ```lua
--- Mineração
-['pickaxe'] = {['name'] = 'pickaxe', ['label'] = 'Picareta', ['weight'] = 100, ['type'] = 'item', ['image'] = 'pickaxe.png', ['unique'] = false, ['useable'] = true, ['shouldClose'] = true, ['combinable'] = nil, ['level'] = 0, ['description'] = 'Equipamento para mineração'},
-['coal'] = {['name'] = 'coal', ['label'] = 'Carvão', ['weight'] = 50, ['type'] = 'item', ['image'] = 'coal.png', ['unique'] = false, ['useable'] = false, ['shouldClose'] = false, ['combinable'] = nil, ['level'] = 0, ['description'] = 'Carvão mineral extraído da mina'},
-['iron_ore'] = {['name'] = 'iron_ore', ['label'] = 'Minério de Ferro', ['weight'] = 60, ['type'] = 'item', ['image'] = 'iron_ore.png', ['unique'] = false, ['useable'] = false, ['shouldClose'] = false, ['combinable'] = nil, ['level'] = 0, ['description'] = 'Minério de ferro bruto'},
-['copper_ore'] = {['name'] = 'copper_ore', ['label'] = 'Minério de Cobre', ['weight'] = 55, ['type'] = 'item', ['image'] = 'copper_ore.png', ['unique'] = false, ['useable'] = false, ['shouldClose'] = false, ['combinable'] = nil, ['level'] = 0, ['description'] = 'Minério de cobre bruto'},
-['silver_ore'] = {['name'] = 'silver_ore', ['label'] = 'Minério de Prata', ['weight'] = 70, ['type'] = 'item', ['image'] = 'silver_ore.png', ['unique'] = false, ['useable'] = false, ['shouldClose'] = false, ['combinable'] = nil, ['level'] = 0, ['description'] = 'Minério de prata precioso'},
-['gold_nugget'] = {['name'] = 'gold_nugget', ['label'] = 'Pepita de Ouro', ['weight'] = 80, ['type'] = 'item', ['image'] = 'gold_nugget.png', ['unique'] = false, ['useable'] = false, ['shouldClose'] = false, ['combinable'] = nil, ['level'] = 0, ['description'] = 'Pepita de ouro puro'},
-['quartz'] = {['name'] = 'quartz', ['label'] = 'Quartzo', ['weight'] = 45, ['type'] = 'item', ['image'] = 'quartz.png', ['unique'] = false, ['useable'] = false, ['shouldClose'] = false, ['combinable'] = nil, ['level'] = 0, ['description'] = 'Cristal de quartzo brilhante'},
+-- Picareta com sistema de durabilidade
+["pickaxe"] = {
+    ["name"] = "pickaxe",
+    ["label"] = "Picareta", 
+    ["weight"] = 100,
+    ["type"] = "item",
+    ["image"] = "pickaxe.png",
+    ["unique"] = false,
+    ["useable"] = true,
+    ["shouldClose"] = true,
+    ["combinable"] = nil,
+    ["level"] = 0,
+    ["description"] = "Equipamento para mineração com sistema de durabilidade",
+    ["decay"] = 25,        -- 25 minutos para decair completamente
+    ["delete"] = true      -- Remove quando qualidade = 0
+},
 ```
 
-**Nota**: Você pode encontrar o arquivo completo `installation/shared_items.lua` no repositório com todos os itens já formatados.
+### 3. Imagens (RSG Framework)
+Copie as imagens da pasta `installation/images/` para `rsg-core/html/images/`
+
+### 4. Configuração
+Configure as opções no `config.lua`:
+
+```lua
+-- Sistema de Durabilidade da Picareta
+Config.PickaxeDurability = {
+    maxDurability = 100,           -- Durabilidade máxima (100%)
+    wearPerUse = 4,                -- Desgaste por uso (4% = 25 usos total)
+    warningLevels = {50, 25, 10},  -- Níveis de aviso (50%, 25%, 10%)
+    criticalLevel = 5,             -- Nível crítico (5% - último aviso)
+    breakAtZero = true,            -- Quebra quando chega a 0%
+    showDurabilityInNotification = true, -- Mostrar durabilidade nas notificações
+    useNativeSystem = true,        -- Usar sistema nativo do rsg-inventory
+}
+```
 
 ## 🎮 Como Usar
 
-1. **Obter uma Picareta**: Compre uma picareta em qualquer loja
-2. **Encontrar um Local de Mineração**: Procure por pedras e rochas no mapa
-3. **Iniciar a Mineração**: Use a picareta próximo às rochas
-4. **Coletar Recursos**: Receba minérios e dinheiro baseado no que você encontrar
-5. **Vender Recursos**: Venda os minérios em lojas ou para outros jogadores
+1. **Obter Picareta**: Compre ou obtenha uma picareta
+2. **Ir à Mina**: Vá até uma das 6 minas disponíveis
+3. **Mineração**: Use a tecla E nos pontos de mineração
+4. **Durabilidade**: A picareta se desgasta a cada uso
+5. **Avisos**: Receba notificações quando a durabilidade estiver baixa
+6. **Substituição**: Quando quebrar, use uma nova picareta
 
-## 🏔️ Locais de Mineração
+## 🏔️ Minas Disponíveis
 
-O sistema inclui 6 locais únicos de mineração:
+- **Strawberry Mine**: Carvão e minério de ferro
+- **Little Creek Mine**: Minério de cobre e prata
+- **Desert Mine**: Ouro e quartzo
+- **Elysian Pool Mine**: Materiais raros
+- **Annesburg Mine**: Minérios de alta qualidade
+- **Valentine Mine**: Materiais diversos
 
-1. **Mina de Annesburg** - Especializada em carvão e ferro
-2. **Mina de Elysian Pool** - Rica em cobre e quartzo
-3. **Mina de Valentine** - Concentra-se em quartzo e carvão
-4. **Mina de Strawberry** - Rica em ferro e carvão
-5. **Mina do Deserto** - Rica em ouro e pedras preciosas
-6. **Mina Secreta** - Mistura balanceada de todos os minérios
+## ⚙️ Sistema de Durabilidade
 
-Cada mina tem suas próprias chances de drop e especialidades únicas.
+### Como Funciona
+- **Durabilidade Inicial**: 100%
+- **Desgaste por Uso**: 4% (configurável)
+- **Total de Usos**: 25 minerações por picareta
+- **Sistema Individual**: Cada picareta tem sua própria durabilidade
 
-## ⚙️ Configuração
+### Níveis de Aviso
+- **50%**: "Aviso: Sua picareta está meio desgastada"
+- **25%**: "Aviso: Sua picareta está desgastada"
+- **10%**: "Aviso: Sua picareta está muito desgastada"
+- **5%**: "ATENÇÃO: Sua picareta está quase quebrada!"
 
-Todas as configurações podem ser editadas no arquivo `config.lua`:
+### Múltiplas Picaretas
+- Cada picareta tem durabilidade independente
+- Sistema usa a primeira picareta disponível
+- Quando uma quebra, automaticamente usa a próxima
 
-- **Locais de Mineração**: Adicione ou remova pontos de mineração
-- **Tipos de Minérios**: Configure quais minérios podem ser encontrados
-- **Chances de Drop**: Ajuste a probabilidade de encontrar cada minério
-- **Recompensas**: Configure o dinheiro e experiência recebidos
-- **Durabilidade**: Ajuste quanto as picaretas se desgastam
-- **Blips**: Configure ícones e cores dos blips no mapa
+## 🔧 Configurações Avançadas
 
-## 🌍 Idiomas Suportados
+### Tempos de Mineração
+```lua
+Config.SmallMiningTime = 10000    -- 10 segundos (60% chance)
+Config.MediumMiningTime = 15000   -- 15 segundos (30% chance)
+Config.LargeMiningTime = 20000    -- 20 segundos (10% chance)
+```
 
-- 🇵🇹 Português (pt-pt)
-- 🇺🇸 Inglês (en)
-- 🇪🇸 Espanhol (es)
+### Recompensas
+```lua
+Config.SmallReward = {min = 1, max = 3}    -- Pequena colheita
+Config.MediumReward = {min = 2, max = 5}   -- Colheita média
+Config.LargeReward = {min = 3, max = 8}    -- Grande colheita
+```
 
-## 🤝 Contribuição
+## 🐛 Solução de Problemas
 
-Contribuições são bem-vindas! Sinta-se à vontade para:
+### Mineração Não Funciona
+1. Verifique se tem uma picareta no inventário
+2. Confirme se está próximo de um ponto de mineração
+3. Verifique se o rsg-core está funcionando
 
-1. Fazer um Fork do projeto
-2. Criar uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
-3. Fazer commit das suas mudanças (`git commit -m 'Add some AmazingFeature'`)
-4. Fazer push para a branch (`git push origin feature/AmazingFeature`)
-5. Abrir um Pull Request
+### Durabilidade Não Funciona (RSG Framework)
+1. Confirme se adicionou `decay` e `delete` ao item pickaxe no rsg-core
+2. Verifique se o rsg-inventory está atualizado
+3. Reinicie o rsg-core após adicionar os itens
 
-## 📄 Licença
-
-Este projeto está licenciado sob a Licença GPL v3 - veja o arquivo [LICENSE](LICENSE) para detalhes.
+### Blips Não Aparecem
+1. Verifique se está próximo de uma mina (100m)
+2. Confirme se a mina não é secreta
+3. Verifique as configurações de blip no config.lua
 
 ## 📝 Changelog
 
-Veja o arquivo [CHANGELOG.md](CHANGELOG.md) para um histórico detalhado das mudanças.
+### v2.0.0 - Sistema de Durabilidade
+- ✅ Implementado sistema de durabilidade para picaretas
+- ✅ Integração com sistema nativo do rsg-inventory
+- ✅ Suporte a múltiplas picaretas com durabilidade individual
+- ✅ Sistema de avisos progressivos
+- ✅ Remoção automática quando durabilidade chega a 0%
+- ✅ Configurações flexíveis no config.lua
+- ✅ Traduções em português
+- ✅ Correção de bugs nos prompts e blips
 
-## ⚠️ Aviso
+### v1.0.0 - Versão Inicial
+- ✅ Sistema básico de mineração
+- ✅ 6 minas diferentes
+- ✅ Sistema de recompensas
+- ✅ Animações e blips
 
-Este é um recurso para RedM e requer o framework RSG-Core para funcionar corretamente. Certifique-se de ter todas as dependências instaladas antes de usar.
+## 👨‍💻 Autor
+
+**Rick Sanchez**
+
+*Inspirado nos scripts do RexShack#3041*
+
+## 📄 Licença
+
+Este projeto está sob licença. Veja o arquivo LICENSE para mais detalhes.
+
+---
+
+**Desenvolvido com ❤️ para a comunidade RSG Framework**

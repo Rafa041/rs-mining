@@ -4,6 +4,8 @@ local Translations = {
         something_went_wrong = 'Algo correu mal!',
         mining_cancelled = 'Mineração cancelada!',
         no_pickaxe_equipped = 'Precisa de equipar uma picareta!',
+        pickaxe_broken = 'A sua picareta não tem durabilidade suficiente para minerar!',
+        pickaxe_completely_broken = 'A sua picareta quebrou completamente!',
     },
     success = {
         your_pickaxe_broke = 'A sua picareta partiu-se!',
@@ -34,6 +36,15 @@ local Translations = {
         mining_time = 'Tempo de mineração: ',
         seconds = ' segundos',
         pickaxe_durability = 'Durabilidade da picareta: ',
+    },
+    durability = {
+        title = 'Durabilidade da Picareta',
+        warning_50 = 'Aviso: Sua picareta está meio desgastada',
+        warning_25 = 'Aviso: Sua picareta está desgastada',
+        warning_10 = 'Aviso: Sua picareta está muito desgastada',
+        warning_critical = 'ATENÇÃO: Sua picareta está quase quebrada!',
+        remaining = ' restante',
+        percent = '%',
     },
     commands = {
         mining_help = 'Comandos de mineração disponíveis',
