@@ -1,4 +1,5 @@
 local RSGCore = exports['rsg-core']:GetCoreObject()
+
 local miningstarted = false
 local mining
 local testAnimDict = 'amb_work@world_human_pickaxe@wall@male_d@base'
@@ -74,7 +75,6 @@ local function createMineBlips()
             local coords = { blipConfig.coords.x, blipConfig.coords.y, blipConfig.coords.z }
             local blip = addBlipForCoords(blipConfig.name, blipConfig.hash, coords, blipConfig.color)
             table.insert(miningBlips, blip)
-            print("Criado blip da mina: " .. mineId .. " - " .. blipConfig.name)
         end
     end
 end
@@ -88,7 +88,6 @@ local function createMiningPointBlips(nearbyMineId)
                 local coords = { location.coords.x, location.coords.y, location.coords.z }
                 local blip = addBlipForCoords(location.name, 692310, coords, 2)
                 table.insert(miningPointBlips, blip)
-                print("Criado blip do ponto: " .. location.name .. " (Mina: " .. nearbyMineId .. ")")
             end
         end
     end
@@ -116,7 +115,6 @@ local function createAllBlips()
     -- Cria blips dos pontos de mineração (controlados por distância)
     createMiningPointBlips()
 
-    print("Total de blips criados - Minas: " .. #miningBlips .. ", Pontos: " .. #miningPointBlips)
 end
 
 -- Função para verificar se o jogador está próximo de alguma mina
@@ -188,12 +186,6 @@ local function updateBlipVisibility()
         end
     end
 
-    -- Debug: mostra distância mais próxima a cada 10 segundos
-    if math.random(1, 10) == 1 then
-        print("Distância mais próxima: " ..
-            math.floor(nearestDistance) ..
-            "m, Próximo: " .. tostring(isNearAnyMine) .. ", Mina: " .. (nearbyMineId or "nenhuma"))
-    end
 
     -- Só atualiza se o estado mudou (apenas para os pontos)
     if isNearAnyMine ~= blipsVisible then
@@ -202,11 +194,9 @@ local function updateBlipVisibility()
         if blipsVisible then
             -- Recria apenas os blips dos pontos da mina específica
             createMiningPointBlips(nearbyMineId)
-            print("Criando pontos de mineração - jogador próximo da mina: " .. (nearbyMineId or "desconhecida"))
         else
             -- Remove apenas os blips dos pontos
             removeMiningPointBlips()
-            print("Removendo pontos de mineração - jogador longe")
         end
     end
 end
@@ -215,7 +205,6 @@ end
 CreateThread(function()
     Wait(2000)        -- Aguarda 2 segundos para garantir que tudo está carregado
     createMineBlips() -- Cria apenas os blips das minas principais (sempre visíveis)
-    print("Blips das minas principais criados - sempre visíveis no mapa")
 
     -- Verifica se o jogador está próximo de alguma mina para criar os pontos iniciais
     Wait(1000) -- Aguarda mais 1 segundo
@@ -239,7 +228,6 @@ CreateThread(function()
 
     if nearbyMineId and nearestDistance <= blipVisibilityDistance then
         createMiningPointBlips(nearbyMineId)
-        print("Jogador próximo de mina - criando pontos de mineração da mina: " .. nearbyMineId)
     end
 end)
 
@@ -253,8 +241,16 @@ end)
 
 -- mining locations (pontos de mineração)
 Citizen.CreateThread(function()
+    Wait(1000) -- Aguarda 1 segundo para garantir que tudo está carregado
+    
     for mineId, mineData in pairs(Config.Mines) do
         for _, location in pairs(mineData.locations) do
+            -- Verificar se o prompt já existe antes de criar
+            local promptExists = false
+            -- Tentar remover prompt existente primeiro (se houver)
+            exports['rsg-core']:deletePrompt(location.location)
+            
+            -- Criar novo prompt
             exports['rsg-core']:createPrompt(location.location, location.coords, RSGCore.Shared.Keybinds['E'],
                 Lang:t('menu.start') .. location.name, {
                     type = 'client',
@@ -283,41 +279,48 @@ RegisterNetEvent('rsg-mining:client:StartMining')
 AddEventHandler('rsg-mining:client:StartMining', function(mineId, locationId)
     local player = PlayerPedId()
     local hasItem = exports['rsg-inventory']:HasItem('pickaxe', 1)
+    
     if miningstarted == false then
         if hasItem then
-            local randomNumber = math.random(1, 100)
-            if randomNumber > 90 then -- 10% chance of pickace breaking
-                TriggerServerEvent('rsg-mining:server:removeitem', 'pickaxe')
-            else
-                local coords = GetEntityCoords(player)
-                local boneIndex = GetEntityBoneIndexByName(player, "SKEL_R_Finger00")
-                pickaxeProp = CreateObject(GetHashKey("p_pickaxe01x"), coords, true, true, true)
-                miningstarted = true
-
-                SetCurrentPedWeapon(player, 'WEAPON_UNARMED', true)
-                FreezeEntityPosition(player, true)
-                ClearPedTasksImmediately(player)
-                AttachEntityToEntity(pickaxeProp, player, boneIndex, -0.35, -0.21, -0.39, -8.0, 47.0, 11.0, true, false,
-                    true,
-                    false, 0, true)
-
-                -- Start mining animation
-                LoadAnimDict(testAnimDict)
-                TaskPlayAnim(player, testAnimDict, testAnim, 3.0, 3.0, -1, 1, 0, false, false, false)
-
-                -- Show mining started notification
-                local mineName = Config.Mines[mineId] and Config.Mines[mineId].name or "Mina"
-                TriggerEvent('bln_notify:send', {
-                    title = 'Mineração',
-                    description = 'A começar a minerar em ' .. mineName .. '...',
-                    icon = 'toast_mp_daily_objective_small',
-                    placement = 'top-right',
-                    duration = 3000
-                }, 'INFO')
-
-                -- Determine mining time based on chance (server will tell us the type)
-                TriggerServerEvent('rsg-mining:server:getMiningTime', mineId)
+            -- Temporariamente, pular verificação de durabilidade e ir direto para mineração
+            local coords = GetEntityCoords(player)
+            local boneIndex = GetEntityBoneIndexByName(player, "SKEL_R_Finger00")
+            
+            -- Verificar se o modelo da picareta é válido
+            local pickaxeHash = GetHashKey("p_pickaxe01x")
+            if not IsModelValid(pickaxeHash) and not IsModelInCdimage(pickaxeHash) then
+                return
             end
+            
+            pickaxeProp = CreateObject(pickaxeHash, coords, true, true, true)
+            if pickaxeProp == 0 then
+                return
+            end
+            miningstarted = true
+
+            SetCurrentPedWeapon(player, 'WEAPON_UNARMED', true)
+            FreezeEntityPosition(player, true)
+            ClearPedTasksImmediately(player)
+            AttachEntityToEntity(pickaxeProp, player, boneIndex, -0.35, -0.21, -0.39, -8.0, 47.0, 11.0, true, false,
+                true,
+                false, 0, true)
+
+            -- Start mining animation
+            LoadAnimDict(testAnimDict)
+            TaskPlayAnim(player, testAnimDict, testAnim, 3.0, 3.0, -1, 1, 0, false, false, false)
+
+            -- Show mining started notification
+            local mineName = Config.Mines[mineId] and Config.Mines[mineId].name or "Mina"
+            TriggerEvent('bln_notify:send', {
+                title = 'Mineração',
+                description = 'A começar a minerar em ' .. mineName .. '...',
+                icon = 'toast_mp_daily_objective_small',
+                placement = 'top-right',
+                duration = 3000
+            }, 'INFO')
+
+            -- Determine mining time based on chance (server will tell us the type)
+            TriggerServerEvent('rsg-mining:server:getMiningTime', mineId)
         else
             TriggerEvent('bln_notify:send', {
                 title = 'Erro',
@@ -338,6 +341,70 @@ AddEventHandler('rsg-mining:client:StartMining', function(mineId, locationId)
     end
 end)
 
+-- receive pickaxe durability check result
+RegisterNetEvent('rsg-mining:client:pickaxeDurabilityResult')
+AddEventHandler('rsg-mining:client:pickaxeDurabilityResult', function(canMine, durability, mineId, locationId)
+    
+    if canMine then
+        -- Picareta tem durabilidade suficiente, continuar com mineração
+        local player = PlayerPedId()
+        local coords = GetEntityCoords(player)
+        local boneIndex = GetEntityBoneIndexByName(player, "SKEL_R_Finger00")
+        
+        -- Verificar se o modelo da picareta é válido
+        local pickaxeHash = GetHashKey("p_pickaxe01x")
+        if not IsModelValid(pickaxeHash) and not IsModelInCdimage(pickaxeHash) then
+            print("^1[rs-mining] Modelo de picareta inválido!^0")
+            return
+        end
+        
+        pickaxeProp = CreateObject(pickaxeHash, coords, true, true, true)
+        if pickaxeProp == 0 then
+            print("^1[rs-mining] Falha ao criar objeto da picareta!^0")
+            return
+        end
+        miningstarted = true
+
+        SetCurrentPedWeapon(player, 'WEAPON_UNARMED', true)
+        FreezeEntityPosition(player, true)
+        ClearPedTasksImmediately(player)
+        AttachEntityToEntity(pickaxeProp, player, boneIndex, -0.35, -0.21, -0.39, -8.0, 47.0, 11.0, true, false,
+            true,
+            false, 0, true)
+
+        -- Start mining animation
+        LoadAnimDict(testAnimDict)
+        TaskPlayAnim(player, testAnimDict, testAnim, 3.0, 3.0, -1, 1, 0, false, false, false)
+
+        -- Show mining started notification with durability info
+        local mineName = Config.Mines[mineId] and Config.Mines[mineId].name or "Mina"
+        local durabilityText = ""
+        if Config.PickaxeDurability.showDurabilityInNotification then
+            durabilityText = " (Durabilidade: " .. durability .. "%)"
+        end
+        
+        TriggerEvent('bln_notify:send', {
+            title = 'Mineração',
+            description = 'A começar a minerar em ' .. mineName .. '...' .. durabilityText,
+            icon = 'toast_mp_daily_objective_small',
+            placement = 'top-right',
+            duration = 3000
+        }, 'INFO')
+
+        -- Determine mining time based on chance (server will tell us the type)
+        TriggerServerEvent('rsg-mining:server:getMiningTime', mineId)
+    else
+        -- Picareta quebrou ou sem durabilidade
+        TriggerEvent('bln_notify:send', {
+            title = 'Picareta Quebrada',
+            description = 'A sua picareta não tem durabilidade suficiente para minerar!',
+            icon = 'cross',
+            placement = 'top-right',
+            duration = 5000
+        }, 'ERROR')
+    end
+end)
+
 -- receive mining time from server and start mining process
 RegisterNetEvent('rsg-mining:client:startMiningProcess')
 AddEventHandler('rsg-mining:client:startMiningProcess', function(miningTime, rewardType)
@@ -348,7 +415,18 @@ AddEventHandler('rsg-mining:client:startMiningProcess', function(miningTime, rew
     -- Remove picareta existente se houver
     removePickaxe()
 
-    pickaxeProp = CreateObject(GetHashKey("p_pickaxe01x"), coords, true, true, true)
+    -- Verificar se o modelo da picareta é válido
+    local pickaxeHash = GetHashKey("p_pickaxe01x")
+    if not IsModelValid(pickaxeHash) and not IsModelInCdimage(pickaxeHash) then
+        print("^1[rs-mining] Modelo de picareta inválido!^0")
+        return
+    end
+    
+    pickaxeProp = CreateObject(pickaxeHash, coords, true, true, true)
+    if pickaxeProp == 0 then
+        print("^1[rs-mining] Falha ao criar objeto da picareta!^0")
+        return
+    end
 
     SetCurrentPedWeapon(player, 'WEAPON_UNARMED', true)
     FreezeEntityPosition(player, true)
